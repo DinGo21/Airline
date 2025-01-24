@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Airplane extends Model
 {
@@ -11,7 +12,7 @@ class Airplane extends Model
         "places"
     ];
     
-    public function flights()
+    public function flights(): HasMany
     {
         return $this->hasMany(Flight::class);
     }
