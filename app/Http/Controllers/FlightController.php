@@ -13,4 +13,11 @@ class FlightController extends Controller
 
         return (view("index", compact("flights")));
     }
+
+    public function show(string $id)
+    {
+        $flight = Flight::find($id);
+
+        return (view("show", compact("flight")));
+    }
 }

@@ -1,6 +1,6 @@
-@extends("layouts.app2")
+@extends ("layouts.app2")
 
-@section("content")
+@section ("content")
 	<input type="text" id="input" class="searchBar" placeholder="">
 	<div class="container">
 		<table id="table" class="table">
