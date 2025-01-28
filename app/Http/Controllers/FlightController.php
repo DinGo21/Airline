@@ -33,7 +33,6 @@ class FlightController extends Controller
                 ]
             );
         }
-        return (Redirect::to(route("show", $flight->id)));
     }
 
     public function show(Request $request, string $id)
@@ -43,7 +42,8 @@ class FlightController extends Controller
     
         if ($request->action === "book")
         {
-            return ($this->book($flight, Auth::id()));
+            $this->book($flight, Auth::id());
+            return (Redirect::to(route("show", $flight->id)));
         }
         return (view("show", compact("flight", "isBooked")));
     }
