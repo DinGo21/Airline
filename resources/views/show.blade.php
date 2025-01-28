@@ -11,6 +11,11 @@
             <p>{{$flight->date}}</p>
             <p>{{$flight->airplane->name}}</p>
             <p>{{$flight->airplane->places}}</p>
+            @guest
+                <p>You must be signed to book this flight.</p>
+            @else
+                <p>Book</p>
+            @endguest
         </div>
     </div>
 @endsection
