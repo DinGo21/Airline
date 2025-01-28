@@ -48,6 +48,14 @@ class FlightController extends Controller
             ]
         );
 
+        if ($flight->airplane->places != 0 && !$flight->status)
+        {
+            $flight->update(
+                [
+                    "status" => 1
+                ]
+            );
+        }
         return (response()->json($flight, 200));
     }
 
