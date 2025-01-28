@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         Airplane::factory(10)->create();
 
         Flight::factory(10)->create();
+
     }
 }
