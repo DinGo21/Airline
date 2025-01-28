@@ -18,18 +18,37 @@ class FlightController extends Controller
 
     public function book(Flight $flight, int $userId)
     {
-        $flight->users()->attach([$userId]);
+        $flight->users()->attach($userId);
         $flight->airplane->update(
             [
                 "places" => $flight->airplane->places - 1
             ]
         );
 
-        if ($flight->airplane->places === 0 && $flight->status != 0)
+        if ($flight->airplane->places === 0 && $flight->status)
         {
             $flight->update(
                 [
                     "status" => 0
+                ]
+            );
+        }
+    }
+
+    public function debook(Flight $flight, int $userId)
+    {
+        $flight->users()->detach($userId);
+        $flight->airplane->update(
+            [
+                "places" => $flight->airplane->places + 1
+            ]
+        );
+
+        if (!$flight->status)
+        {
+            $flight->update(
+                [
+                    "status" => 1
                 ]
             );
         }
@@ -40,9 +59,14 @@ class FlightController extends Controller
         $flight = Flight::find($id);
         $isBooked = count($flight->users()->where("user_id", Auth::id())->get());
     
-        if ($request->action === "book")
+        if ($request->action === "book" && !$isBooked && Auth::check())
         {
             $this->book($flight, Auth::id());
+            return (Redirect::to(route("show", $flight->id)));
+        }
+        if ($request->action == "debook" && $isBooked && Auth::check())
+        {
+            $this->debook($flight, Auth::id());
             return (Redirect::to(route("show", $flight->id)));
         }
         return (view("show", compact("flight", "isBooked")));

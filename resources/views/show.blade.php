@@ -49,9 +49,9 @@
                             This Flight is not available.
                         </p>
                     @elseif ($isBooked)
-                        <p>You already booked this flight</p>
+                        <a href="?action=debook">Cancel Booking</a>
                     @else
-                        <a href="?action=book">Book</a>
+                        <a href="?action=book">Book Flight</a>
                     @endif
                 @endguest
             </div>
