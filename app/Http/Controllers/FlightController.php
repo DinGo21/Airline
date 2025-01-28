@@ -25,7 +25,7 @@ class FlightController extends Controller
             ]
         );
 
-        if ($flight->airplane->places === 0)
+        if ($flight->airplane->places === 0 && $flight->status != 0)
         {
             $flight->update(
                 [
