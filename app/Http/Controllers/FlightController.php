@@ -16,15 +16,34 @@ class FlightController extends Controller
         return (view("index", compact("flights")));
     }
 
+    public function book(Flight $flight, int $userId)
+    {
+        $flight->users()->attach([$userId]);
+        $flight->airplane->update(
+            [
+                "places" => $flight->airplane->places - 1
+            ]
+        );
+
+        if ($flight->airplane->places === 0)
+        {
+            $flight->update(
+                [
+                    "status" => 0
+                ]
+            );
+        }
+        return (Redirect::to(route("show", $flight->id)));
+    }
+
     public function show(Request $request, string $id)
     {
         $flight = Flight::find($id);
         $isBooked = count($flight->users()->where("user_id", Auth::id())->get());
-
+    
         if ($request->action === "book")
         {
-            $flight->users()->attach([Auth::id()]);
-            return Redirect::to(route("show", $id));
+            return ($this->book($flight, Auth::id()));
         }
         return (view("show", compact("flight", "isBooked")));
     }
