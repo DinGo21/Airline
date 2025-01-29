@@ -24,12 +24,12 @@
 				</li>
 			@endif
 		@else
-			<li class="headerListElement">
-				<a href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+			<li class="headerListElement dropdown">
+				<a class="headerLink dropdownButton" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
 					{{ Auth::user()->name }}
 				</a>
-				<div>
-					<a href="{{ route('logout') }}"
+				<div class="dropdownMenu">
+					<a class="headerLink dropdownLink" href="{{ route('logout') }}"
 						onclick="event.preventDefault();
 									document.getElementById('logout-form').submit();">
 						{{ __('Logout') }}
