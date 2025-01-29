@@ -18,13 +18,16 @@ class FlightController extends Controller
 
     public function book(Flight $flight, int $userId)
     {
+        if ($flight->airplane->places === 0)
+        {
+            return;
+        }
         $flight->users()->attach($userId);
         $flight->airplane->update(
             [
                 "places" => $flight->airplane->places - 1
             ]
         );
-
         if ($flight->airplane->places === 0 && $flight->status)
         {
             $flight->update(
@@ -37,13 +40,16 @@ class FlightController extends Controller
 
     public function debook(Flight $flight, int $userId)
     {
+        if ($flight->airplane->places === 200)
+        {
+            return;
+        }
         $flight->users()->detach($userId);
         $flight->airplane->update(
             [
                 "places" => $flight->airplane->places + 1
             ]
         );
-
         if (!$flight->status)
         {
             $flight->update(
