@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Flight;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class FlightController extends Controller
 {
@@ -31,6 +32,14 @@ class FlightController extends Controller
             ]
         );
 
+        if ($flight->airplane->places != 0 && !$flight->status)
+        {
+            $flight->update(
+                [
+                    "status" => 1
+                ]
+            );
+        }
         return (response()->json($flight, 200));
     }
 

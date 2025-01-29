@@ -58,13 +58,13 @@ class FlightController extends Controller
     {
         $flight = Flight::find($id);
         $isBooked = count($flight->users()->where("user_id", Auth::id())->get());
-    
-        if ($request->action === "book" && !$isBooked && Auth::check())
+
+        if ($request->action === "book" && !$isBooked)
         {
             $this->book($flight, Auth::id());
             return (Redirect::to(route("show", $flight->id)));
         }
-        if ($request->action == "debook" && $isBooked && Auth::check())
+        if ($request->action == "debook" && $isBooked)
         {
             $this->debook($flight, Auth::id());
             return (Redirect::to(route("show", $flight->id)));
