@@ -1,7 +1,11 @@
 @extends ("layouts.app2")
 
 @section ("content")
-	<input type="text" id="input" class="searchBar" placeholder="">
+    <section class="banner">
+        <div class="bannerContent">
+            <input type="text" id="input" class="searchBar" placeholder="Search Something...">
+        </div>
+    </section>
 	<div class="container">
 		<table id="table" class="table">
             <thead>
