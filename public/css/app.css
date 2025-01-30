@@ -1,4 +1,5 @@
 @import url(header.css);
+@import url(footer.css);
 @import url(index.css);
 
 :root {
@@ -40,5 +41,5 @@ a {
 }
 
 .main {
-	margin-top: 5.8rem;
+	margin-top: 5.6rem;
 }
