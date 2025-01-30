@@ -1,6 +1,7 @@
 @import url(header.css);
 @import url(footer.css);
 @import url(index.css);
+@import url(show.css);
 
 :root {
 	--white: #FFFFFF;
@@ -42,4 +43,21 @@ a {
 
 .main {
 	margin-top: 5.6rem;
+}
+
+.banner {
+	background-repeat: no-repeat;
+	background-size: cover;
+	text-align: center;
+	position: relative;
+	margin-bottom: 2rem;
+}
+
+.bannerContent {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

@@ -1,0 +1,41 @@
+.bannerShow {
+	height: 20rem;
+	background-image: url(../img/banner2.jpg);
+}
+
+.bannerTitle {
+	color: var(--white);
+	margin: 2rem 0;
+	text-align: center;
+	font-size: 6rem;
+}
+
+.flight {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 2rem;
+}
+
+.flightContent {
+	border: 0.2rem solid var(--darkWhite);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.flightContent:first-child {
+	border-top-left-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+}
+
+.flightContent:last-child {
+	border-top-right-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+}
+
+.flightDetails {
+	display: flex;
+	margin-bottom: 2rem;
+	column-gap: 2rem;
+}

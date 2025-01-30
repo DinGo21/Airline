@@ -1,28 +1,36 @@
 @extends ("layouts.app2")
 
 @section ("content")
+    <section class="banner bannerShow">
+        <div class="bannerContent">
+            <h2 class="bannerTitle">Details</h2>
+        </div>
+    </section>
     <div class="container">
-        <h2>Details</h2>
-        <div>
-            <img src="{{$flight->image}}" alt="{{$flight->arrival}}">
-            <div>
-                <h3>{{$flight->arrival}}</h3>
-                <div>
-                    <div>
-                        <h4>Date:</h4>
-                        <p>{{$flight->date}}</p>
+        <div class="flight">
+            <div class="flightContent">
+                <img class="flightImage" src="{{$flight->image}}" alt="{{$flight->arrival}}">
+            </div>
+            <div class="flightContent">
+                <h3 class="flightArrival">{{$flight->arrival}}</h3>
+                <div class="flightDetails">
+                    <div class="flightDetail">
+                        <h4 class="flightElement">Date:</h4>
+                        <p class="flightDescription flightDate">{{$flight->date}}</p>
                     </div>
-                    <div>
-                        <h4>Departure:</h4>
-                        <p>{{$flight->departure}}</p>
+                    <div class="flightDetail">
+                        <h4 class="flightElement">Departure:</h4>
+                        <p class="flightDescription flightDeparture">{{$flight->departure}}</p>
                     </div>
-                    <div>
-                        <h4>Plane:</h4>
-                        <p>{{$flight->airplane->name}}</p>
+                </div>
+                <div class="flightDetails">
+                    <div class="flightDetail">
+                        <h4 class="flightElement">Plane:</h4>
+                        <p class="flightDescription flightName">{{$flight->airplane->name}}</p>
                     </div>
-                    <div>
-                        <h4>Available Places:</h4>
-                        <p>{{$flight->airplane->places}}</p>
+                    <div class="flightDetail">
+                        <h4 class="flightElement">Available Places:</h4>
+                        <p class="flightDescription flightplaces">{{$flight->airplane->places}}</p>
                     </div>
                 </div>
                 @guest
