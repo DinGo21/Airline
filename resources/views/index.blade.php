@@ -29,7 +29,11 @@
 							<p>{{$flight->arrival}}</p>
                         </td>
                         <td class="cell">
-                            <p>{{$flight->status}}</p>
+                            @if ($flight->status)
+                                <p class="available">Available</p>
+                            @else
+                                <p class="notAvailable">Not Available</p>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
