@@ -4,6 +4,7 @@ namespace Tests\Feature\Api;
 
 use Tests\TestCase;
 use App\Models\Airplane;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -25,6 +26,7 @@ class AirplaneTest extends TestCase
         $response = $this->get(route("apiairplaneshow", 1));
 
         $response->assertStatus(200)->assertJsonFragment(["id" => 1]);
+        
     }
 
     public function test_createAirplane(): void
@@ -83,5 +85,12 @@ class AirplaneTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertDatabaseCount("airplanes", 1);
+    }
+
+    public function test_airplaneHasRelationship()
+    {
+        $airplane = Airplane::factory()->create();
+
+        $this->assertInstanceOf(HasMany::class, $airplane->flights());
     }
 }
