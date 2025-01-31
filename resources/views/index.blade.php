@@ -20,13 +20,13 @@
                 @foreach ($flights as $flight)
                     <tr class="row">
                         <td class="cell">
-							<p>{{$flight->date}}</p>
-						</td>
+                            <p>{{$flight->date}}</p>
+                        </td>
                         <td class="cell">
                             <p>{{$flight->departure}}</p>
                         </td>
                         <td class="cell">
-							<p>{{$flight->arrival}}</p>
+                            <p>{{$flight->arrival}}</p>
                         </td>
                         <td class="cell">
                             @if ($flight->status)
