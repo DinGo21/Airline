@@ -13,7 +13,30 @@ function linkRows()
 	}
 }
 
+function filterTable()
+{
+	const input = document.getElementById("input");
+
+	if (!input)
+		return ;
+	input.addEventListener("input", function ()
+	{
+		const filter = this.value.toLowerCase();
+		const rows = document.getElementById("table").querySelectorAll(".row");
+	
+		for (let i = 0; i < rows.length; i++) 
+		{
+			rows[i].style.display = "";
+			if (!rows[i].innerHTML.toLowerCase().includes(filter))
+			{
+				rows[i].style.display = "none";
+			}
+		}
+	});
+}
+
 if (!path)
 {
+	filterTable();
 	linkRows();
 }
