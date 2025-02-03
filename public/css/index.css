@@ -28,11 +28,20 @@
 	}
 }
 
+.indexTable {
+	overflow-x: auto;
+}
+
+@media (min-width: 480px) {
+	.indexTable {
+		overflow-x: unset;
+	}
+}
+
 .table {
 	width: 100%;
 	margin: auto;
 	border-spacing: 0 2rem;
-	
 }
 
 
@@ -48,6 +57,10 @@
 	-webkit-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.11);
 	-moz-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.11);
 	box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.11);
+}
+
+.row:hover {
+	cursor: pointer;
 }
 
 .row:nth-child(even) .cell {

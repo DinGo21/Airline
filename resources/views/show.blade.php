@@ -9,7 +9,7 @@
     <div class="container">
         <div class="flight">
             <div class="flightContent">
-                <img class="flightImage" src="{{$flight->image}}" alt="{{$flight->arrival}}">
+                <img class="flightImage" src="{{asset('img/show.jpg')}}" alt="{{$flight->arrival}}">
             </div>
             <div class="flightContent">
                 <h3 class="flightArrival">{{$flight->arrival}}</h3>

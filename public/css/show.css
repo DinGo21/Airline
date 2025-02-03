@@ -13,12 +13,18 @@
 .flight {
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	margin-bottom: 2rem;
 }
 
+@media (min-width: 768px) {
+	.flight {
+		flex-direction: row;
+	}
+}
+
 .flightContent {
-	border: 0.2rem solid var(--darkWhite);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -41,15 +47,24 @@
 }
 
 .flightDetails {
+	border: 0.2rem solid var(--darkWhite);
+	background-color: var(--white);
+	padding: 1rem;
+	border-radius: 1rem;
 	display: flex;
 	justify-content: center;
 	margin-bottom: 2rem;
 	column-gap: 4rem;
 }
 
+.flightDetails:last-child {
+	border: none;
+}
+
 .flightDetail {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 }
 
@@ -59,12 +74,12 @@
 
 .flightDescription {
 	margin: 0;
-	border-bottom: 0.2rem solid var(--gray);
 }
 
 .flightWarning {
 	display: flex;
 	justify-content: center;
+	font-weight: 700;
 }
 
 .notSigned {
@@ -73,4 +88,21 @@
 
 .notAvailable {
 	color: var(--red);
+}
+
+.flightButton {
+	border-radius: 1rem;
+	padding: 1.5rem;
+	font-weight: 700;
+	color: var(--white);
+}
+
+.debook, .book {
+	color: var(--white);
+	background-color: var(--blue);
+	transition: background-color 0.2s ease;
+}
+
+.debook:hover, .book:hover {
+	background-color: #0073ff;
 }

@@ -6,7 +6,7 @@
             <input type="text" id="input" class="searchBar" placeholder="Search Something...">
         </div>
     </section>
-	<div class="container">
+	<div class="container indexTable">
 		<table id="table" class="table">
             <thead>
                 <tr>
