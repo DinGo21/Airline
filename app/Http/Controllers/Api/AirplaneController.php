@@ -22,12 +22,10 @@ class AirplaneController extends Controller
     {
         if ($request->places < 0 || $request->places > 200)
             return (response("Incorrect parameters", 400));
-        $plane = Airplane::create(
-            [
-                "name" => $request->name,
-                "places" => $request->places
-            ]
-        );
+        $plane = Airplane::create([
+            "name" => $request->name,
+            "max_places" => $request->maxPlaces
+        ]);
         
         return (response()->json($plane, 200));
     }
@@ -35,12 +33,10 @@ class AirplaneController extends Controller
     public function update(Request $request, string $id)
     {
         $plane = Airplane::find($id);
-        $plane->update(
-            [
-                "name" => $request->name,
-                "places" => $request->places
-            ]
-        );
+        $plane->update([
+            "name" => $request->name,
+            "max_places" => $request->maxPlaces
+        ]);
 
         return (response()->json($plane, 200));
     }

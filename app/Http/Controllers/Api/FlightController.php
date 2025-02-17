@@ -21,24 +21,21 @@ class FlightController extends Controller
 
     public function store(Request $request)
     {
-        $flight = Flight::create(
-            [
-                "date" => $request->date,
-                "departure" => $request->departure,
-                "arrival" => $request->arrival,
-                "image" => $request->image,
-                "airplane_id" => $request->airplaneId,
-                "status" => $request->status
-            ]
-        );
+        $flight = Flight::create([
+            "date" => $request->date,
+            "departure" => $request->departure,
+            "arrival" => $request->arrival,
+            "image" => $request->image,
+            "airplane_id" => $request->airplaneId,
+            "available_places" => $request->availablePlaces,
+            "status" => $request->status
+        ]);
 
-        if ($flight->airplane->places != 0 && !$flight->status)
+        if ($flight->available_places > $flight->airplane->max_places)
         {
-            $flight->update(
-                [
-                    "status" => 1
-                ]
-            );
+            $flight->update([
+                "available_places" => $flight->airplane->max_places
+            ]);
         }
         return (response()->json($flight, 200));
     }
@@ -46,24 +43,21 @@ class FlightController extends Controller
     public function update(Request $request, string $id)
     {
         $flight = Flight::find($id);
-        $flight->update(
-            [
-                "date" => $request->date,
-                "departure" => $request->departure,
-                "arrival" => $request->arrival,
-                "image" => $request->image,
-                "airplane_id" => $request->airplaneId,
-                "status" => $request->status
-            ]
-        );
+        $flight->update([
+            "date" => $request->date,
+            "departure" => $request->departure,
+            "arrival" => $request->arrival,
+            "image" => $request->image,
+            "airplane_id" => $request->airplaneId,
+            "available_places" => $request->availablePlaces,
+            "status" => $request->status
+        ]);
 
-        if ($flight->airplane->places != 0 && !$flight->status)
+        if ($flight->available_places > $flight->airplane->max_places)
         {
-            $flight->update(
-                [
-                    "status" => 1
-                ]
-            );
+            $flight->update([
+                "available_places" => $flight->airplane->max_places
+            ]);
         }
         return (response()->json($flight, 200));
     }
