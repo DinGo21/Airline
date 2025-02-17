@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 @foreach ($flights as $flight)
-                    <tr id="{{$flight->id}}" class="row">
+                    <tr id="{{$flight->id}}" class="row getRows">
                         <td class="cell">
                             <p>{{$flight->date}}</p>
                         </td>

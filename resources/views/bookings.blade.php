@@ -3,6 +3,9 @@
 @section("content")
     <h2 class="bookingsTitle">{{$user->name}}'s Bookings</h2>
     <div class="container">
+        <div class="">
+            <input type="text" id="input" class="bookingsSearchBar" placeholder="Search Something...">
+        </div>
         <table id="table" class="bookings">
             <thead>
                 <tr>
@@ -14,7 +17,7 @@
             </thead>
             <tbody>
                 @foreach ($user->flights as $flight)
-                    <tr id="{{$flight->id}}" class="bookingsRow">
+                    <tr id="{{$flight->id}}" class="bookingsRow getRows">
                         <td class="bookingsCell">
                             <p>{{$flight->date}}</p>
                         </td>

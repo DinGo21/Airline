@@ -6,6 +6,14 @@
 	font-weight: 700;
 }
 
+.bookingsSearchBar {
+	width: 100%;
+	border: 1px solid var(--gray);
+	border-radius: 0.5rem;
+	margin-bottom: 3rem;
+	padding: 1rem;
+}
+
 .bookings {
 	width: 100%;
 	margin: auto;

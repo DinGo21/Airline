@@ -22,7 +22,7 @@ function filterTable()
 	input.addEventListener("input", function ()
 	{
 		const filter = this.value.toLowerCase();
-		const rows = document.getElementById("table").querySelectorAll(".row");
+		const rows = document.getElementById("table").querySelectorAll(".getRows");
 	
 		for (let i = 0; i < rows.length; i++) 
 		{
@@ -39,4 +39,8 @@ if (!path)
 {
 	filterTable();
 	linkRows();
+}
+if (path === "bookings")
+{
+	filterTable();
 }
