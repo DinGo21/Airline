@@ -34,6 +34,9 @@
 					</svg>
 				</a>
 				<div class="dropdownMenu">
+					<a class="headerLink dropdownLink" href="{{ route('index') }}">
+						{{ __("Bookings")}}
+					</a>
 					<a class="headerLink dropdownLink" href="{{ route('logout') }}"
 						onclick="event.preventDefault();
 									document.getElementById('logout-form').submit();">
