@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Airplane;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,12 +17,15 @@ class FlightFactory extends Factory
      */
     public function definition(): array
     {
+        $airplane = Airplane::find(fake()->randomDigitNot(0));
+
         return [
             "date" => fake()->date(),
             "departure" => fake()->country(),
             "arrival" => fake()->country(),
             "image" => fake()->imageUrl(),
-            "airplane_id" => fake()->randomDigitNot(0),
+            "airplane_id" => $airplane->id,
+            "available_places" => $airplane->max_places,
             "status" => fake()->boolean()
         ];
     }
