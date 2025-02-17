@@ -34,7 +34,7 @@
 					</svg>
 				</a>
 				<div class="dropdownMenu">
-					<a class="headerLink dropdownLink" href="{{ route('index') }}">
+					<a class="headerLink dropdownLink" href="{{ route('userBookings') }}">
 						{{ __("Bookings")}}
 					</a>
 					<a class="headerLink dropdownLink" href="{{ route('logout') }}"
