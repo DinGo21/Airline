@@ -20,7 +20,7 @@ class FlightFactory extends Factory
         $airplane = Airplane::find(fake()->randomDigitNot(0));
 
         return [
-            "date" => fake()->date(),
+            "date" => fake()->date("Y-m-d", "+10 years"),
             "departure" => fake()->country(),
             "arrival" => fake()->country(),
             "image" => fake()->imageUrl(),

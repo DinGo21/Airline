@@ -24,6 +24,15 @@ class DatabaseSeeder extends Seeder
 
         Airplane::factory(10)->create();
 
-        Flight::factory(10)->create();
+        Flight::factory()->create(["date" => "2025-03-11"]);
+        Flight::factory()->create(["date" => "2025-04-01"]);
+        Flight::factory()->create(["date" => "2025-04-12"]);
+        Flight::factory()->create(["date" => "2025-04-13"]);
+        Flight::factory()->create(["date" => "2025-04-29"]);
+        Flight::factory()->create(["date" => "2025-05-20"]);
+        Flight::factory()->create(["date" => "2025-06-02"]);
+        Flight::factory()->create(["date" => "2025-04-28"]);
+        Flight::factory()->create(["date" => "2025-07-04"]);
+        Flight::factory(5)->create();
     }
 }

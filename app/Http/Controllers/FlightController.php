@@ -11,7 +11,9 @@ class FlightController extends Controller
 {
     public function index()
     {
-        $flights = Flight::where("status", "1")->orderBy("date", "desc")->get();
+        $flights = Flight::where("status", "1")
+                            ->where("date", ">=", now())
+                            ->orderBy("date", "desc")->get();
 
         return (view("index", compact("flights")));
     }
