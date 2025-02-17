@@ -33,11 +33,20 @@ class AirplaneController extends Controller
     public function update(Request $request, string $id)
     {
         $plane = Airplane::find($id);
+
         $plane->update([
             "name" => $request->name,
             "max_places" => $request->maxPlaces
         ]);
-
+        foreach ($plane->flights as $flight)
+        {
+            if ($flight->available_places > $plane->max_places)
+            {
+                $flight->update([
+                    "available_places" => $plane->max_places
+                ]);
+            }
+        }
         return (response()->json($plane, 200));
     }
 

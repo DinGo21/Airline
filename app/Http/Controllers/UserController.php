@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function debook(User $user, string $id)
     {
-        $flight = $user->flights()->where("flight_id", "=", $id)->first();
+        $flight = $user->flights()->where("flight_id", $id)->first();
         
         $user->flights()->detach($id);
         $flight->update([
