@@ -13,12 +13,11 @@
                     <th class="label" scope="col">date</th>
                     <th class="label" scope="col">departure</th>
                     <th class="label" scope="col">arrival</th>
-                    <th class="label" scope="col">status</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($flights as $flight)
-                    <tr class="row">
+                    <tr id="{{$flight->id}}" class="row">
                         <td class="cell">
                             <p>{{$flight->date}}</p>
                         </td>
@@ -27,13 +26,6 @@
                         </td>
                         <td class="cell">
                             <p>{{$flight->arrival}}</p>
-                        </td>
-                        <td class="cell">
-                            @if ($flight->status)
-                                <p class="available">Available</p>
-                            @else
-                                <p class="notAvailable">Not Available</p>
-                            @endif
                         </td>
                     </tr>
                 @endforeach
