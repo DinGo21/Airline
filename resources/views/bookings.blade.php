@@ -33,7 +33,7 @@
                                     <path d="M21 21l-6 -6" />
                                 </svg>
                             </a>
-                            <a class="bookingsOption" href="#">
+                            <a class="bookingsOption" href="{{route('userBookings', ['action' => 'debook', 'id' => $flight->id])}}">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  
                                     stroke="#ff2b2b"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  
                                     class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-x"><path stroke="none"
