@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
 
-class BookingIsAllowed
+class ActionIsAllowed
 {
     /**
      * Handle an incoming request.
