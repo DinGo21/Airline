@@ -14,14 +14,34 @@ class AirplaneController extends Controller
         $this->middleware('auth');
     }
 
+    public function store(Request $request)
+    {
+        $airplane = Airplane::create([
+            "name" => $request->name,
+            "max_places" => $request->max_places
+        ]);
+
+        return ($airplane);
+    }
+
+    public function create(Request $request)
+    {
+        if ($request->method() == "POST")
+        {
+            $this->store($request);
+            return (Redirect::to(route("planes")));
+        }
+        return (view("airplanesCreate"));
+    }
+
     public function index()
     {
         $airplanes = Airplane::all();
         
         if (!Auth::user()->admin)
         {
-            return Redirect::to(route("index"));
+            return (Redirect::to(route("index")));
         }
-        return view("airplanes", compact("airplanes"));
+        return (view("airplanes", compact("airplanes")));
     }
 }

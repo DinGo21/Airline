@@ -4,7 +4,7 @@
 <div class="container">
 	<h2 class="text-center mb-3">Airplanes</h2>
 	<div class="mb-2">
-		<button type="button" class="btn btn-success">add</button>
+		<a href="{{route('planesCreate')}}" class="btn btn-success">add</a>
 	</div>
 	<table class="table table-hover">
 		<thead class="table-light">
@@ -18,9 +18,9 @@
 		<tbody class="table-group-divider">
 			@foreach ($airplanes as $airplane)
 				<tr>
-					<th scope="row">{{__($airplane->id)}}</th>
-					<td>{{__($airplane->name)}}</td>
-					<td>{{__($airplane->max_places)}}</td>
+					<th scope="row">{{$airplane->id}}</th>
+					<td>{{$airplane->name}}</td>
+					<td>{{$airplane->max_places}}</td>
 					<td>
 						<a href="{{route('index')}}">
 							<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  

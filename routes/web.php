@@ -13,4 +13,6 @@ Auth::routes();
 
 Route::get("/user/bookings", [UserController::class, "bookings"])->name("userBookings")->middleware(BookingIsAllowed::class.":index");
 Route::get("/planes", [AirplaneController::class, "index"])->name("planes");
+Route::get("/planes/create", [AirplaneController::class, "create"])->name("planesCreate");
+Route::post("/planes/create", [AirplaneController::class, "create"])->name("planesCreate");
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
