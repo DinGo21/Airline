@@ -34,13 +34,23 @@ class AirplaneController extends Controller
         return (view("airplanesCreate"));
     }
 
-    public function index()
+    public function destroy(string $id)
+    {
+        Airplane::find($id)->delete();
+    }
+
+    public function index(Request $request)
     {
         $airplanes = Airplane::all();
         
         if (!Auth::user()->admin)
         {
             return (Redirect::to(route("index")));
+        }
+        if ($request->action == "delete")
+        {
+            $this->destroy($request->id);
+            return (Redirect::to(route("planes")));
         }
         return (view("airplanes", compact("airplanes")));
     }
