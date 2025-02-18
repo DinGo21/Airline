@@ -8,18 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
 
-class ActionIsAllowed
+class BookingIsAllowed
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $route): Response
     {
-        if (!Auth::check() && $request->action)
+        if ((!Auth::check() || Auth::user()->admin) && $request->action)
         {
-            return Redirect::to(route("show", $request->id));
+            return Redirect::to(route($route));
         }
         return $next($request);
     }

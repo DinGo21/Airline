@@ -34,9 +34,11 @@
 					</svg>
 				</a>
 				<div class="dropdownMenu">
-					<a class="headerLink dropdownLink" href="{{ route('userBookings') }}">
-						{{ __("Bookings")}}
-					</a>
+					@if (!Auth::user()->admin)
+						<a class="headerLink dropdownLink" href="{{ route('userBookings') }}">
+							{{ __("Bookings")}}
+						</a>
+					@endif
 					<a class="headerLink dropdownLink" href="{{ route('logout') }}"
 						onclick="event.preventDefault();
 									document.getElementById('logout-form').submit();">
