@@ -38,6 +38,10 @@
 						<a class="headerLink dropdownLink" href="{{ route('userBookings') }}">
 							{{ __("Bookings")}}
 						</a>
+					@else
+						<a class="headerLink dropdownLink" href="{{ route('index') }}">
+							{{ __("Planes")}}
+						</a>
 					@endif
 					<a class="headerLink dropdownLink" href="{{ route('logout') }}"
 						onclick="event.preventDefault();
