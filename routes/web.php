@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AirplaneController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\BookingIsAllowed;
@@ -11,4 +12,5 @@ Route::get("/flights/{id}", [FlightController::class, "show"])->name("show")->mi
 Auth::routes();
 
 Route::get("/user/bookings", [UserController::class, "bookings"])->name("userBookings")->middleware(BookingIsAllowed::class.":index");
+Route::get("/planes", [AirplaneController::class, "index"])->name("planes");
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -12,16 +12,16 @@ class AirplaneController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        if (!Auth::user()->admin)
-        {
-            return Redirect::to(route("index"));
-        }
     }
 
     public function index()
     {
         $airplanes = Airplane::all();
-
+        
+        if (!Auth::user()->admin)
+        {
+            return Redirect::to(route("index"));
+        }
         return view("airplanes", compact("airplanes"));
     }
 }

@@ -39,7 +39,7 @@
 							{{ __("Bookings")}}
 						</a>
 					@else
-						<a class="headerLink dropdownLink" href="{{ route('index') }}">
+						<a class="headerLink dropdownLink" href="{{ route('planes') }}">
 							{{ __("Planes")}}
 						</a>
 					@endif
