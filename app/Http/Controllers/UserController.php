@@ -36,7 +36,7 @@ class UserController extends Controller
         return view("bookings", compact("user"));
     }
 
-    public function users()
+    public function users(Request $request)
     {
         $users = User::all();
 
