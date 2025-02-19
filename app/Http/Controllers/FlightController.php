@@ -118,6 +118,11 @@ class FlightController extends Controller
         return (view("flightsEdit", compact("flight", "airplanes")));
     }
 
+    public function destroy(string $id)
+    {
+        Flight::find($id)->delete();
+    }
+
     public function flights(Request $request)
     {
         $flights = Flight::all();
@@ -125,6 +130,11 @@ class FlightController extends Controller
         if (!Auth::user()->admin)
         {
             return (Redirect::to(route("index")));
+        }
+        if ($request->action == "delete")
+        {
+            $this->destroy($request->id);
+            return (Redirect::to("flights"));
         }
         return (view("flights", compact("flights")));
     }

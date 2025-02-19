@@ -78,7 +78,7 @@
 								<path d="M16 5l3 3" />
 							</svg>
 						</a>
-						<a href="{{route('index')}}">
+						<a href="{{route('flights', ['action' => 'delete', 'id' => $flight->id])}}">
 							<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  
 								stroke="#ff2b2b"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  
 								class="icon icon-tabler icons-tabler-outline icon-tabler-eraser"><path stroke="none" 
