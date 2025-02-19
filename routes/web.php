@@ -15,4 +15,6 @@ Route::get("/user/bookings", [UserController::class, "bookings"])->name("userBoo
 Route::get("/planes", [AirplaneController::class, "index"])->name("planes");
 Route::get("/planes/create", [AirplaneController::class, "create"])->name("planesCreate");
 Route::post("/planes/create", [AirplaneController::class, "create"])->name("planesCreate");
+Route::get("/planes/{id}/edit", [AirplaneController::class, "edit"])->name("planesEdit");
+Route::post("/planes/{id}/edit", [AirplaneController::class, "edit"])->name("planesEdit");
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
