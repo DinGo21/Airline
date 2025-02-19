@@ -35,4 +35,15 @@ class UserController extends Controller
         }
         return view("bookings", compact("user"));
     }
+
+    public function users()
+    {
+        $users = User::all();
+
+        if (!Auth::user()->admin)
+        {
+            return (Redirect::to(route("index")));
+        }
+        return (view("users", compact("users")));
+    }
 }

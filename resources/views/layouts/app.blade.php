@@ -58,6 +58,9 @@
                                     <a class="dropdown-item" href="{{ route('planes') }}">
                                         {{ __('Planes') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('users') }}">
+                                        {{ __('Users') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

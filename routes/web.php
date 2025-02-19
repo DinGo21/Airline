@@ -11,7 +11,10 @@ Route::get("/flights/{id}", [FlightController::class, "show"])->name("show")->mi
 
 Auth::routes();
 
+Route::get("/users", [UserController::class, "users"])->name("users");
 Route::get("/user/bookings", [UserController::class, "bookings"])->name("userBookings")->middleware(BookingIsAllowed::class.":index");
+
+
 Route::get("/planes", [AirplaneController::class, "index"])->name("planes");
 Route::get("/planes/create", [AirplaneController::class, "create"])->name("planesCreate");
 Route::post("/planes/create", [AirplaneController::class, "create"])->name("planesCreate");

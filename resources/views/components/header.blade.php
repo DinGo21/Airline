@@ -42,6 +42,9 @@
 						<a class="headerLink dropdownLink" href="{{ route('planes') }}">
 							{{ __("Planes")}}
 						</a>
+						<a class="headerLink dropdownLink" href="{{ route('users') }}">
+							{{ __("Users")}}
+						</a>
 					@endif
 					<a class="headerLink dropdownLink" href="{{ route('logout') }}"
 						onclick="event.preventDefault();
