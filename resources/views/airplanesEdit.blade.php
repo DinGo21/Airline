@@ -37,7 +37,8 @@
                         </div>
                         <div class="row mb-0">
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">
+                                <a href="{{route('planes')}}" class="btn btn-primary mx-1">{{__('Cancel')}}</a>
+                                <button type="submit" class="btn btn-primary mx-1">
                                     {{ __('Edit') }}
                                 </button>
                             </div>
