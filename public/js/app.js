@@ -20,7 +20,7 @@ function linkRows()
 	{
 		rows[i].addEventListener("click", () =>
 		{
-			window.location.href = `/flights/${rows[i].id}`;
+			window.location.href = `/flight/${rows[i].id}`;
 	  	});
 	}
 }

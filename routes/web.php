@@ -14,6 +14,8 @@ Auth::routes();
 Route::get("/flights", [FlightController::class, "flights"])->name("flights");
 Route::get("/flights/create", [FlightController::class, "create"])->name("flightsCreate");
 Route::post("/flights/create", [FlightController::class, "create"])->name("flightsCreate");
+Route::get("/flights/{id}/edit", [FlightController::class, "edit"])->name("flightsEdit");
+Route::post("/flights/{id}/edit", [FlightController::class, "edit"])->name("flightsEdit");
 
 Route::get("/users", [UserController::class, "users"])->name("users");
 Route::get("/user/bookings", [UserController::class, "bookings"])->name("userBookings")->middleware(BookingIsAllowed::class.":index");

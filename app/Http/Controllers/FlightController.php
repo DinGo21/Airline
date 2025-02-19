@@ -85,6 +85,39 @@ class FlightController extends Controller
         return (view("flightsCreate", compact("airplanes")));
     }
 
+    public function update(Request $request, Flight $flight)
+    {
+        $airplane = Airplane::find($request->airplane);
+
+        $flight->update([
+            "date" => $request->date,
+            "departure" => $request->departure,
+            "arrival" => $request->arrival,
+            "image" => $request->image,
+            "airplane_id" => $airplane->id,
+            "available_places" => $airplane->max_places,
+            "status" => $request->status
+        ]);
+        return ($flight);
+    }
+
+    public function edit(Request $request, string $id)
+    {
+        $flight = Flight::find($id);
+        $airplanes = Airplane::all();
+
+        if (!Auth::user()->admin)
+        {
+            return (Redirect::to(route("index")));
+        }
+        if ($request->method() === "POST")
+        {
+            $this->update($request, $flight);
+            return (Redirect::to(route("flights")));
+        }
+        return (view("flightsEdit", compact("flight", "airplanes")));
+    }
+
     public function flights(Request $request)
     {
         $flights = Flight::all();
