@@ -7,14 +7,16 @@ use App\Http\Middleware\BookingIsAllowed;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FlightController::class, "index"])->name("index");
-Route::get("/flights/{id}", [FlightController::class, "show"])->name("show")->middleware(BookingIsAllowed::class.":index");
+Route::get("/flight/{id}", [FlightController::class, "show"])->name("show")->middleware(BookingIsAllowed::class.":index");
 
 Auth::routes();
 
+Route::get("/flights", [FlightController::class, "flights"])->name("flights");
+Route::get("/flights/create", [FlightController::class, "create"])->name("flightsCreate");
+Route::post("/flights/create", [FlightController::class, "create"])->name("flightsCreate");
+
 Route::get("/users", [UserController::class, "users"])->name("users");
 Route::get("/user/bookings", [UserController::class, "bookings"])->name("userBookings")->middleware(BookingIsAllowed::class.":index");
-
-Route::get("/flights", [FlightController::class, "flights"])->name("flights");
 
 Route::get("/planes", [AirplaneController::class, "index"])->name("planes");
 Route::get("/planes/create", [AirplaneController::class, "create"])->name("planesCreate");
