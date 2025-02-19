@@ -1,9 +1,9 @@
 const path = window.location.pathname.split('/').pop();
 
-function userShowTables()
+function showTables()
 {
-	const shows = document.querySelectorAll("#show-flights");
-	const popups = document.querySelectorAll("#popup-flights");
+	const shows = document.querySelectorAll("#show-popup");
+	const popups = document.querySelectorAll("#popup");
 
 	for	(let i = 0; i < shows.length; i++)
 	{
@@ -56,7 +56,7 @@ if (path === "bookings")
 {
 	filterTable();
 }
-if (path === "users")
+if (path === "users" || path === "flights")
 {
-	userShowTables();
+	showTables();
 }

@@ -51,4 +51,15 @@ class FlightController extends Controller
         }
         return (view("show", compact("flight", "isBooked")));
     }
+
+    public function flights(Request $request)
+    {
+        $flights = Flight::all();
+
+        if (!Auth::user()->admin)
+        {
+            return (Redirect::to(route("flights")));
+        }
+        return (view("flights", compact("flights")));
+    }
 }

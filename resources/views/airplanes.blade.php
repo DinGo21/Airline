@@ -4,7 +4,7 @@
 <div class="container">
 	<h2 class="text-center mb-3">Airplanes</h2>
 	<div class="mb-2">
-		<a href="{{route('planesCreate')}}" class="btn btn-success">add</a>
+		<a href="{{route('planesCreate')}}" class="btn btn-success">Add</a>
 	</div>
 	<table class="table table-hover">
 		<thead class="table-light">

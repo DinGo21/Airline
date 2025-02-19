@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("departure");
             $table->string("arrival");
             $table->string("image");
-            $table->foreignId("airplane_id")->constrained("airplanes");
+            $table->foreignId("airplane_id")->constrained("airplanes")->onDelete("cascade");
             $table->unsignedInteger("available_places");
             $table->boolean("status");
             $table->timestamps();
