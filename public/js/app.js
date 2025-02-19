@@ -1,5 +1,17 @@
 const path = window.location.pathname.split('/').pop();
 
+function userShowTables()
+{
+	const shows = document.querySelectorAll("#show-flights");
+	const popups = document.querySelectorAll("#popup-flights");
+
+	for	(let i = 0; i < shows.length; i++)
+	{
+		shows[i].addEventListener("click", () => popups[i].classList.remove("d-none"));
+		popups[i].addEventListener("click", () => popups[i].classList.add("d-none"));
+	}
+}
+
 function linkRows()
 {
 	const rows = document.querySelectorAll(".row");
@@ -43,4 +55,8 @@ if (!path)
 if (path === "bookings")
 {
 	filterTable();
+}
+if (path === "users")
+{
+	userShowTables();
 }
