@@ -44,6 +44,6 @@ class UserController extends Controller
         {
             return (Redirect::to(route("index")));
         }
-        return (view("users", compact("users")));
+        return (view("admin.users.users", compact("users")));
     }
 }

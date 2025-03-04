@@ -3,3 +3,9 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
+.bannerShow {
+	background-image: url(../img/banner2.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}

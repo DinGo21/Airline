@@ -82,7 +82,7 @@ class FlightController extends Controller
             $this->store($request);
             return (Redirect::to(route("flights")));
         }
-        return (view("flightsCreate", compact("airplanes")));
+        return (view("admin.flights.flightsCreate", compact("airplanes")));
     }
 
     public function update(Request $request, Flight $flight)
@@ -115,7 +115,7 @@ class FlightController extends Controller
             $this->update($request, $flight);
             return (Redirect::to(route("flights")));
         }
-        return (view("flightsEdit", compact("flight", "airplanes")));
+        return (view("admin.flights.flightsEdit", compact("flight", "airplanes")));
     }
 
     public function destroy(string $id)
@@ -136,6 +136,6 @@ class FlightController extends Controller
             $this->destroy($request->id);
             return (Redirect::to("flights"));
         }
-        return (view("flights", compact("flights")));
+        return (view("admin.flights.flights", compact("flights")));
     }
 }
