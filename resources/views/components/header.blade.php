@@ -36,15 +36,21 @@
 						</a>
 
 						<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{{ route('flights') }}">
-								{{ __('Flights') }}
-							</a>
-							<a class="dropdown-item" href="{{ route('planes') }}">
-								{{ __('Planes') }}
-							</a>
-							<a class="dropdown-item" href="{{ route('users') }}">
-								{{ __('Users') }}
-							</a>
+							@if (!Auth::user()->admin)
+								<a class="dropdown-item" href="{{ route('userBookings') }}">
+									{{ __('Bookings') }}
+								</a>
+							@else
+								<a class="dropdown-item" href="{{ route('flights') }}">
+									{{ __('Flights') }}
+								</a>
+								<a class="dropdown-item" href="{{ route('planes') }}">
+									{{ __('Planes') }}
+								</a>
+								<a class="dropdown-item" href="{{ route('users') }}">
+									{{ __('Users') }}
+								</a>
+							@endif
 							<a class="dropdown-item" href="{{ route('logout') }}"
 								onclick="event.preventDefault();
 												document.getElementById('logout-form').submit();">
