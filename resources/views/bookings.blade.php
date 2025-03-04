@@ -32,7 +32,27 @@
                             </div>
                             <a href="{{route('show', $flight->id)}}" class="btn btn-primary">Details</a>
                             @if ($flight->status)
-                                <a href="{{route('userBookings', ['action' => 'debook', 'id' => $flight->id])}}" class="btn btn-danger">Cancel</a>
+                                <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Cancel
+                                </a>
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title fs-5" id="exampleModalLabel">Cancel Booking</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                <a href="{{route('userBookings', ['action' => 'debook', 'id' => $flight->id])}}" class="btn btn-primary">Yes</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
                         </div>
                     </div>

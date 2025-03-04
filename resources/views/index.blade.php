@@ -8,12 +8,12 @@
     </section>
     <h3 class="fs-2 text-center">Book Now!</h3>
 	<div class="d-flex justify-content-center flex-wrap my-2">
-        @for ($i = 0; $i < 4; $i++)
+        @for ($i = 0; $i < 8; $i++)
             <div class="card m-2" style="width: 18rem;">
                 <img src="{{asset('img/show.jpg')}}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="fs-3 card-title mb-4">{{$flights[$i]->arrival}}</h5>
-                    <p class="card-text text-decoration-underline fs-5">{{$flights[$i]->date}}</p>
+                    <p class="card-text fs-5">{{$flights[$i]->date}}</p>
                     <a href="{{route('show', $flights[$i]->id)}}" class="btn btn-primary">See Details</a>
                 </div>
             </div>
