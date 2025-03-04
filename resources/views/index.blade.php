@@ -1,35 +1,27 @@
 @extends ("layouts.app2")
 
 @section ("content")
-    <section class="banner bannerIndex">
-        <div class="bannerContent">
-            <input type="text" id="input" class="searchBar" placeholder="Search Something...">
+    <section class="bannerIndex mb-4">
+        <div class="container d-flex flex-column justify-content-center" style="height: 20rem;">
+            <div class="d-flex justify-content-center">
+                <h2 class="rounded bg-warning fs-1 fw-bold text-white p-2">Search What You Want</h2>
+            </div>
+            <input class="form-control p-2" type="text" id="input" placeholder="Search" aria-label="Search">
         </div>
     </section>
-	<div class="container indexTable">
-		<table id="table" class="table">
-            <thead>
-                <tr>
-                    <th class="label" scope="col">date</th>
-                    <th class="label" scope="col">departure</th>
-                    <th class="label" scope="col">arrival</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($flights as $flight)
-                    <tr id="{{$flight->id}}" class="row getRows">
-                        <td class="cell">
-                            <p>{{$flight->date}}</p>
-                        </td>
-                        <td class="cell">
-                            <p>{{$flight->departure}}</p>
-                        </td>
-                        <td class="cell">
-                            <p>{{$flight->arrival}}</p>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <h3 class="fs-2 text-center">Book Now!</h3>
+	<div class="d-flex justify-content-center flex-wrap my-2">
+        @foreach ($flights as $flight)
+            @if ($flight->id < 5)
+                <div class="card m-2" style="width: 18rem;">
+                    <img src="{{asset('img/show.jpg')}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="fs-3 card-title mb-4">{{$flight->arrival}}</h5>
+                        <p class="card-text fs-5">{{$flight->date}}</p>
+                        <a href="{{route('show', $flight->id)}}" class="btn btn-primary">See Details</a>
+                    </div>
+                </div>
+            @endif
+        @endforeach
 	</div>
 @endsection
