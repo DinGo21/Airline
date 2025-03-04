@@ -9,3 +9,9 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
+.bannerBookings {
+	background-image: url(../img/banner3.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
