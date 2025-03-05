@@ -50,7 +50,7 @@ function filterTable()
 if (!path)
 {
 	filterTable();
-	linkRows();
+	// linkRows();
 }
 if (path === "bookings")
 {

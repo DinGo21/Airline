@@ -7,6 +7,7 @@ use App\Http\Middleware\BookingIsAllowed;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FlightController::class, "index"])->name("index");
+Route::get('/search', [FlightController::class, "search"])->name("search");
 Route::get("/flight/{id}", [FlightController::class, "show"])->name("show")->middleware(BookingIsAllowed::class.":index");
 
 Auth::routes();

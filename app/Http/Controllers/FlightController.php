@@ -19,6 +19,23 @@ class FlightController extends Controller
         return (view("index", compact("flights")));
     }
 
+    public function search(Request $request)
+    {
+        $departure = '%'.$request->departure.'%';
+        $arrival = '%'.$request->arrival.'%';
+        $date = '%'.$request->date.'%';
+
+        if (!$request->departure && !$request->arrival && !$request->date)
+        {
+            return Redirect::to(route("index"));
+        }
+        $flights = Flight::where("departure", "like", $departure)
+                            ->where("arrival", "like", $arrival)
+                            ->where("date", "like", $date)->get();
+
+        return (view("search", compact("flights")));
+    }
+
     public function book(Flight $flight, int $userId)
     {
         $flight->users()->attach($userId);
