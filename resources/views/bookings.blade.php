@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <a href="{{route('show', $flight->id)}}" class="btn btn-primary">Details</a>
-                            @if ($flight->status)
+                            @if ($flight->status && new DateTime($flight->date) >= now())
                                 <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     Cancel
                                 </a>
