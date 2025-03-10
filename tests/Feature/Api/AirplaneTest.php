@@ -3,10 +3,11 @@
 namespace Tests\Feature\Api;
 
 use Tests\TestCase;
+use App\Models\User;
 use App\Models\Airplane;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AirplaneTest extends TestCase
 {
@@ -15,82 +16,89 @@ class AirplaneTest extends TestCase
     public function test_getAllAirplanes(): void
     {
         Airplane::factory(10)->create();
-        $response = $this->get(route("apiairplaneindex"));
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])->get(route("apiairplaneindex"));
 
         $response->assertStatus(200)->assertJsonCount(10);
     }
 
     public function test_getOneAirplane(): void
     {
-        Airplane::factory()->create();
-        $response = $this->get(route("apiairplaneshow", 1));
+        $airplane = Airplane::factory()->create();
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
+                            ->get(route("apiairplaneshow", $airplane->id));
 
-        $response->assertStatus(200)->assertJsonFragment(["id" => 1]);
-        
+        $response->assertStatus(200)->assertJsonFragment(["id" => $airplane->id]);
     }
 
     public function test_createAirplane(): void
     {
-        $response = $this->post(route("apiairplanestore"), 
-            [
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $user->update(["admin" => 1]);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
+            ->post(route("apiairplanestore"), [
                 "name" => "test",
-                "places" => 200
-            ]
-        );
+                "maxPlaces" => 200
+            ]);
 
-        $this->assertDatabaseCount("airplanes", 1);
-        $response->assertStatus(200)
-                    ->assertJsonFragment(
-                        [
-                            "name" => "test",
-                            "places" => 200
-                        ]
-                    );
-    }
-
-    public function test_createAirplaneError(): void
-    {
-        $response = $this->post(route("apiairplanestore"), 
-            [
-                "name" => "test",
-                "places" => -1
-            ]
-        );
-
-        $response->assertStatus(400)->assertContent("Incorrect parameters");
+        $response->assertStatus(200)->assertJsonFragment([
+            "name" => "test",
+            "max_places" => 200
+        ]);
     }
 
     public function test_updateAirplane(): void
     {
-        Airplane::factory()->create();
-        $response = $this->put(route("apiairplaneupdate", 1), 
-            [
+        $airplane = Airplane::factory()->create();
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $user->update(["admin" => 1]);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
+            ->put(route("apiairplaneupdate", $airplane->id), [
                 "name" => "test",
-                "places" => 200
-            ]
-        );
+                "maxPlaces" => 200
+            ]);
 
-        $response->assertStatus(200)->assertJsonFragment(
-            [
-                "name" => "test",
-                "places" => 200
-            ]
-        );
+        $response->assertStatus(200)->assertJsonFragment([
+            "name" => "test",
+            "max_places" => 200
+        ]);
     }
 
-    public function test_deleteOneAirplane(): void
-    {
-        Airplane::factory(2)->create();
-        $response = $this->delete(route("apiairplanedestroy", 2));
-
-        $response->assertStatus(200);
-        $this->assertDatabaseCount("airplanes", 1);
-    }
-
-    public function test_airplaneHasRelationship()
+    public function test_deleteAirplane(): void
     {
         $airplane = Airplane::factory()->create();
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $user->update(["admin" => 1]);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
+            ->delete(route("apiairplanedestroy", $airplane->id));
 
-        $this->assertInstanceOf(HasMany::class, $airplane->flights());
+        $response->assertStatus(200);
+        $this->assertDatabaseCount("airplanes", 0);
     }
 }

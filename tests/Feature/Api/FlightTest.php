@@ -3,8 +3,9 @@
 namespace Tests\Feature\Api;
 
 use Tests\TestCase;
-use App\Models\Airplane;
+use App\Models\User;
 use App\Models\Flight;
+use App\Models\Airplane;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -16,80 +17,112 @@ class FlightTest extends TestCase
     {
         Airplane::factory(10)->create();
         Flight::factory(10)->create();
-        $response = $this->get(route("apiflightindex"));
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
+            ->get(route("apiflightindex"));
 
         $response->assertStatus(200)->assertJsonCount(10);
     }
 
     public function test_getOneFlight(): void
     {
-        Airplane::factory()->create();
-        Flight::factory()->create(["airplane_id" => 1]);
+        $airplane = Airplane::factory(10)->create();
+        $flight = Flight::factory()->create();
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
+            ->get(route("apiflightshow", $flight->id));
 
-        $response = $this->get(route("apiflightshow", 1));
-
-        $response->assertStatus(200)->assertJsonFragment(["id" => 1]);
+        $response->assertStatus(200)->assertJsonFragment(["id" => $flight->id]);
     }
 
     public function test_createFlight(): void
     {
-        Airplane::factory()->create();
-        $response = $this->post(route("apiflightstore"),
-            [
-                "date" => "2025-12-12",
-                "departure" => "testdeparture",
-                "arrival"  => "testarrival",
-                "image" => "img/test.jpg",
-                "airplaneId" => 1,
-                "status" => 0
-            ]
-        );
-
-        $this->assertDatabaseCount("flights", 1);
-        $response->assertStatus(200)->assertJsonFragment(
-            [
-                "date" => "2025-12-12",
-                "departure" => "testdeparture",
-                "arrival"  => "testarrival",
-                "image" => "img/test.jpg",
-                "airplane_id" => 1,
+        $airplane = Airplane::factory()->create();
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $user->update(["admin" => 1]);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
+            ->post(route("apiflightstore"), [
+                "date" => "2025-05-05",
+                "departure" => "test",
+                "arrival" => "test",
+                "image" => "test",
+                "airplaneId" => $airplane->id,
+                "availablePlaces" => $airplane->max_places,
                 "status" => 1
-            ]
-        );
+            ]);
+
+        $response->assertStatus(200)->assertJsonFragment([
+            "date" => "2025-05-05",
+            "departure" => "test",
+            "arrival" => "test",
+            "image" => "test",
+            "airplane_id" => $airplane->id,
+            "available_places" => $airplane->max_places,
+            "status" => 1
+        ]);
     }
 
     public function test_updateFlight(): void
     {
-        Airplane::factory()->create();
-        Flight::factory()->create(["airplane_id" => 1]);
-        $response = $this->put(route("apiflightupdate", 1),
-            [
-                "date" => "2025-12-12",
-                "departure" => "testdeparture",
-                "arrival"  => "testarrival",
-                "image" => "img/test.jpg",
-                "airplaneId" => 1,
-                "status" => 0
-            ]
-        );
-
-        $response->assertStatus(200)->assertJsonFragment(
-            [
-                "date" => "2025-12-12",
-                "departure" => "testdeparture",
-                "arrival"  => "testarrival",
-                "image" => "img/test.jpg",
-                "airplane_id" => 1,
+        $airplane = Airplane::factory(10)->create();
+        $flight = Flight::factory()->create();
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $user->update(["admin" => 1]);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
+            ->put(route("apiflightupdate", $flight->id), [
+                "date" => "2025-05-05",
+                "departure" => "test",
+                "arrival" => "test",
+                "image" => "test",
+                "airplaneId" => $flight->airplane_id,
+                "availablePlaces" => $flight->available_places,
                 "status" => 1
-            ]
-        );
+            ]);
+
+        $response->assertStatus(200)->assertJsonFragment([
+            "date" => "2025-05-05",
+            "departure" => "test",
+            "arrival" => "test",
+            "image" => "test",
+            "airplane_id" => $flight->airplane_id,
+            "available_places" => $flight->available_places,
+            "status" => 1
+        ]);
     }
 
-    public function test_deleteOneFlight(): void
+    public function test_deleteFlight(): void
     {
-        Airplane::factory()->create();
-        Flight::factory()->create(["airplane_id" => 1]);
-        $response = $this->delete(route("apiflightdestroy", 1));
+        $airplane = Airplane::factory(10)->create();
+        $flight = Flight::factory()->create();
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $user->update(["admin" => 1]);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
+            ->delete(route("apiflightdestroy", $flight->id));
 
         $response->assertStatus(200);
         $this->assertDatabaseCount("flights", 0);
