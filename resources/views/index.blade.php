@@ -37,7 +37,7 @@
     </section>
     <h3 class="fs-2 text-center">Book Now!</h3>
 	<div class="d-flex justify-content-center flex-wrap my-2">
-        @for ($i = 0; $i < 8; $i++)
+        @for ($i = 0; $i < 8 && $i < $flights->count(); $i++)
             <div class="card m-2" style="width: 18rem;">
                 <img src="{{asset('img/show.jpg')}}" class="card-img-top" alt="...">
                 <div class="card-body">
