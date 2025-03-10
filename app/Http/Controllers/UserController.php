@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware("auth");
-    }
-
     public function debook(User $user, string $id)
     {
         $flight = $user->flights()->where("flight_id", $id)->first();

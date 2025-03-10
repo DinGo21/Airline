@@ -19,12 +19,12 @@ Route::post("/flights/create", [FlightController::class, "create"])->middleware(
 Route::get("/flights/{id}/edit", [FlightController::class, "edit"])->middleware("auth", IsAdmin::class.":web")->name("flightsEdit");
 Route::post("/flights/{id}/edit", [FlightController::class, "edit"])->middleware("auth", IsAdmin::class.":web")->name("flightsEdit");
 
-Route::get("/users", [UserController::class, "users"])->middleware(IsAdmin::class.":web")->name("users");
+Route::get("/users", [UserController::class, "users"])->middleware("auth", IsAdmin::class.":web")->name("users");
 Route::get("/user/bookings", [UserController::class, "bookings"])->name("userBookings")->middleware(BookingIsAllowed::class.":index");
 
-Route::get("/planes", [AirplaneController::class, "index"])->middleware(IsAdmin::class.":web")->name("planes");
-Route::get("/planes/create", [AirplaneController::class, "create"])->middleware(IsAdmin::class.":web")->name("planesCreate");
-Route::post("/planes/create", [AirplaneController::class, "create"])->middleware(IsAdmin::class.":web")->name("planesCreate");
-Route::get("/planes/{id}/edit", [AirplaneController::class, "edit"])->middleware(IsAdmin::class.":web")->name("planesEdit");
-Route::post("/planes/{id}/edit", [AirplaneController::class, "edit"])->middleware(IsAdmin::class.":web")->name("planesEdit");
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware(IsAdmin::class.":web")->name('home');
+Route::get("/planes", [AirplaneController::class, "index"])->middleware("auth", IsAdmin::class.":web")->name("planes");
+Route::get("/planes/create", [AirplaneController::class, "create"])->middleware("auth", IsAdmin::class.":web")->name("planesCreate");
+Route::post("/planes/create", [AirplaneController::class, "create"])->middleware("auth", IsAdmin::class.":web")->name("planesCreate");
+Route::get("/planes/{id}/edit", [AirplaneController::class, "edit"])->middleware("auth", IsAdmin::class.":web")->name("planesEdit");
+Route::post("/planes/{id}/edit", [AirplaneController::class, "edit"])->middleware("auth", IsAdmin::class.":web")->name("planesEdit");
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware("auth", IsAdmin::class.":web")->name('home');
