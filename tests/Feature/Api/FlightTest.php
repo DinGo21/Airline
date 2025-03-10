@@ -47,7 +47,7 @@ class FlightTest extends TestCase
 
     public function test_createFlight(): void
     {
-        $airplane = Airplane::factory()->create();
+        $airplane = Airplane::factory()->create(["max_places" => 150]);
         $credentials = [
             "email" => "test@test.com",
             "password" => "12345678"
@@ -57,29 +57,29 @@ class FlightTest extends TestCase
         $token = auth("api")->attempt($credentials);
         $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
             ->post(route("apiflightstore"), [
-                "date" => "2025-05-05",
+                "date" => "2020-05-05",
                 "departure" => "test",
                 "arrival" => "test",
                 "image" => "test",
                 "airplaneId" => $airplane->id,
-                "availablePlaces" => $airplane->max_places,
+                "availablePlaces" => $airplane->max_places + 10,
                 "status" => 1
         ]);
 
         $response->assertStatus(200)->assertJsonFragment([
-            "date" => "2025-05-05",
+            "date" => "2020-05-05",
             "departure" => "test",
             "arrival" => "test",
             "image" => "test",
             "airplane_id" => $airplane->id,
             "available_places" => $airplane->max_places,
-            "status" => 1
+            "status" => 0
         ]);
     }
 
     public function test_updateFlight(): void
     {
-        $airplane = Airplane::factory(10)->create();
+        $airplane = Airplane::factory(10)->create(["max_places" => 150]);
         $flight = Flight::factory()->create();
         $credentials = [
             "email" => "test@test.com",
@@ -90,23 +90,23 @@ class FlightTest extends TestCase
         $token = auth("api")->attempt($credentials);
         $response = $this->withHeaders(["Authentication" => "Bearer ".$token])
             ->put(route("apiflightupdate", $flight->id), [
-                "date" => "2025-05-05",
+                "date" => "2020-05-05",
                 "departure" => "test",
                 "arrival" => "test",
                 "image" => "test",
                 "airplaneId" => $flight->airplane_id,
-                "availablePlaces" => $flight->available_places,
+                "availablePlaces" => $flight->airplane->max_places + 10,
                 "status" => 1
         ]);
 
         $response->assertStatus(200)->assertJsonFragment([
-            "date" => "2025-05-05",
+            "date" => "2020-05-05",
             "departure" => "test",
             "arrival" => "test",
             "image" => "test",
             "airplane_id" => $flight->airplane_id,
-            "available_places" => $flight->available_places,
-            "status" => 1
+            "available_places" => $flight->airplane->max_places,
+            "status" => 0
         ]);
     }
 

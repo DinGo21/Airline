@@ -2,9 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Models\Airplane;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Flight;
+use App\Models\Airplane;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -66,13 +67,22 @@ class AirplaneTest extends TestCase
 
     public function test_editAirplane(): void
     {
-        Airplane::factory()->create();
+        $airplane = Airplane::factory()->create(["max_places" => 150]);
+        Flight::create([
+            "date" => "2025-05-05",
+            "departure" => "test",
+            "arrival" => "test",
+            "image" => "test",
+            "airplane_id" => $airplane->id,
+            "available_places" => $airplane->max_places,
+            "status" => 1
+        ]);
         $user = User::factory()->create(["admin" => 1]);
         $this->be($user);
-        $response = $this->post(route("planesCreate", [
+        $response = $this->post(route("planesEdit", [
             "id" => 1,
             "name" => "test",
-            "max_places" => 200
+            "max_places" => 100
         ]));
 
         $response->assertStatus(302)->assertRedirect(route("planes"));

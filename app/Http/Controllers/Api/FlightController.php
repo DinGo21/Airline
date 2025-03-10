@@ -31,7 +31,7 @@ class FlightController extends Controller
         {
             $places = $airplane->max_places;
         }
-        if (new DateTime($request->date) < new DateTime())
+        if (new DateTime($request->date) < now())
         {
             $status = 0;
         }
@@ -57,7 +57,7 @@ class FlightController extends Controller
         {
             $places = $flight->airplane->max_places;
         }
-        if (new DateTime($request->date) < new DateTime())
+        if (new DateTime($request->date) < now())
         {
             $status = 0;
         }

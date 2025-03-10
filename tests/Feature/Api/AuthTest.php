@@ -37,6 +37,34 @@ class AuthTest extends TestCase
         $this->assertDatabaseCount("users", 0);
     }
 
+    public function test_registerApiUser(): void
+    {
+        $response = $this->post("/api/auth/register", [
+            "name" => "test",
+            "email" => "test@test.com",
+            "password" => "12345678",
+            "password_confirmation" => "12345678"
+        ]);
+
+        $response->assertStatus(201)->assertJsonFragment([
+            "name" => "test",
+            "email" => "test@test.com"
+        ]);
+        $this->assertDatabaseCount("users", 1);
+    }
+
+    public function test_badRegisterApiUser(): void
+    {
+        $response = $this->post("/api/auth/register", [
+            "name" => "test",
+            "email" => "test@test.com",
+            "password" => "12345678",
+        ]);
+
+        $response->assertStatus(400);
+        $this->assertDatabaseCount("users", 0);
+    }
+
     public function test_loginUser(): void
     {
         $user = User::factory()->create([
@@ -63,6 +91,32 @@ class AuthTest extends TestCase
         ]);
 
         $response->assertStatus(302)->assertRedirect("/");
+    }
+
+    public function test_loginApiUser(): void
+    {
+        $user = User::factory()->create([
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ]);
+        $response = $this->post("/api/auth/login", [
+            "email" => "test@test.com",
+            "password" => "12345678",
+        ]);
+        $response->assertStatus(200)->assertJsonStructure(["access_token", "token_type", "expires_in"]);
+    }
+
+    public function test_badLoginApiUser(): void
+    {
+        $user = User::factory()->create([
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ]);
+        $response = $this->post("/api/auth/login", [
+            "email" => "test@test.com",
+            "password" => "1234567",
+        ]);
+        $response->assertStatus(401)->assertJsonFragment(["error" => "Unauthorized"]);
     }
 
     public function test_getCurrentUser(): void
@@ -107,5 +161,18 @@ class AuthTest extends TestCase
 
         $response->assertStatus(302);
         $this->assertFalse(auth()->check());
+    }
+
+    public function test_logoutApiUser(): void
+    {
+        $credentials = [
+            "email" => "test@test.com",
+            "password" => "12345678"
+        ];
+        $user = User::factory()->create($credentials);
+        $token = auth("api")->attempt($credentials);
+        $response = $this->withHeaders(["Authentication" => "Bearer ".$token])->post("/api/auth/logout");
+
+        $response->assertStatus(200)->assertJsonFragment(["message" => "Successfully logged out"]);
     }
 }
