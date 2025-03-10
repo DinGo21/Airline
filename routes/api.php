@@ -24,14 +24,14 @@ Route::group([
 
 
 
-Route::post("/airplanes", [AirplaneController::class, "store"])->middleware(['auth:api', IsAdmin::class])->name("apiairplanestore");
+Route::post("/airplanes", [AirplaneController::class, "store"])->middleware(['auth:api', IsAdmin::class.":api"])->name("apiairplanestore");
 Route::get("/airplanes", [AirplaneController::class, "index"])->middleware('auth:api')->name("apiairplaneindex");
 Route::get("/airplanes/{id}", [AirplaneController::class, "show"])->middleware('auth:api')->name("apiairplaneshow");
-Route::put("/airplanes/{id}", [AirplaneController::class, "update"])->middleware(['auth:api', IsAdmin::class])->name("apiairplaneupdate");
-Route::delete("/airplanes/{id}", [AirplaneController::class, "destroy"])->middleware(['auth:api', IsAdmin::class])->name("apiairplanedestroy");
+Route::put("/airplanes/{id}", [AirplaneController::class, "update"])->middleware(['auth:api', IsAdmin::class.":api"])->name("apiairplaneupdate");
+Route::delete("/airplanes/{id}", [AirplaneController::class, "destroy"])->middleware(['auth:api', IsAdmin::class.":api"])->name("apiairplanedestroy");
 
-Route::post("/flights", [FlightController::class, "store"])->middleware(['auth:api', IsAdmin::class])->name("apiflightstore");
+Route::post("/flights", [FlightController::class, "store"])->middleware(['auth:api', IsAdmin::class.":api"])->name("apiflightstore");
 Route::get("/flights", [FlightController::class, "index"])->middleware('auth:api')->name("apiflightindex");
 Route::get("/flights/{id}", [FlightController::class, "show"])->middleware('auth:api')->name("apiflightshow");
-Route::put("/flights/{id}", [FlightController::class, "update"])->middleware(['auth:api', IsAdmin::class])->name("apiflightupdate");
-Route::delete("/flights/{id}", [FlightController::class, "destroy"])->middleware(['auth:api', IsAdmin::class])->name("apiflightdestroy");
+Route::put("/flights/{id}", [FlightController::class, "update"])->middleware(['auth:api', IsAdmin::class.":api"])->name("apiflightupdate");
+Route::delete("/flights/{id}", [FlightController::class, "destroy"])->middleware(['auth:api', IsAdmin::class.":api"])->name("apiflightdestroy");

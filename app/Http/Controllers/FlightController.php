@@ -99,10 +99,6 @@ class FlightController extends Controller
     {
         $airplanes = Airplane::all();
 
-        if (!Auth::user()->admin)
-        {
-            return (Redirect::to(route("index")));
-        }
         if ($request->method() === "POST")
         {
             $this->store($request);
@@ -132,10 +128,6 @@ class FlightController extends Controller
         $flight = Flight::find($id);
         $airplanes = Airplane::all();
 
-        if (!Auth::user()->admin)
-        {
-            return (Redirect::to(route("index")));
-        }
         if ($request->method() === "POST")
         {
             $this->update($request, $flight);
@@ -153,10 +145,6 @@ class FlightController extends Controller
     {
         $flights = Flight::all();
 
-        if (!Auth::user()->admin)
-        {
-            return (Redirect::to(route("index")));
-        }
         if ($request->action == "delete")
         {
             $this->destroy($request->id);

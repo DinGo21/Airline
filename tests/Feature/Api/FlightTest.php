@@ -64,7 +64,7 @@ class FlightTest extends TestCase
                 "airplaneId" => $airplane->id,
                 "availablePlaces" => $airplane->max_places,
                 "status" => 1
-            ]);
+        ]);
 
         $response->assertStatus(200)->assertJsonFragment([
             "date" => "2025-05-05",
@@ -97,7 +97,7 @@ class FlightTest extends TestCase
                 "airplaneId" => $flight->airplane_id,
                 "availablePlaces" => $flight->available_places,
                 "status" => 1
-            ]);
+        ]);
 
         $response->assertStatus(200)->assertJsonFragment([
             "date" => "2025-05-05",

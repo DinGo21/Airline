@@ -14,9 +14,9 @@ class IsAdmin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $guard): Response
     {
-        if (auth("api")->user()->admin == 0)
+        if (auth($guard)->user()->admin == 0)
         {
             return response()->json(["message" => "User is not an administrator"], 401);
         }

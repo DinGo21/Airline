@@ -40,10 +40,6 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        if (!Auth::user()->admin)
-        {
-            return (Redirect::to(route("index")));
-        }
         return (view("admin.users.users", compact("users")));
     }
 }

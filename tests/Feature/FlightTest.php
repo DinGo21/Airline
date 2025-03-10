@@ -147,5 +147,84 @@ class FlightTest extends TestCase
         $this->assertEquals($flight->airplane->max_places - 1, $flight->available_places);
         $response->assertStatus(302)->assertRedirect(route("show", 1));
     }
+
+    public function test_viewIsFlights(): void
+    {
+        $user = User::factory()->create(["admin" => 1]);
+        $this->be($user);
+        $response = $this->get(route("flights"));
+
+        $response->assertStatus(200)->assertViewIs("admin.flights.flights");
+    }
+
+    public function test_deleteFlight(): void
+    {
+        Airplane::factory(10)->create();
+        Flight::factory(1)->create();
+        $user = User::factory()->create(["admin" => 1]);
+        $this->be($user);
+        $response = $this->get(route("flights", ["action" => "delete", "id" => 1]));
+
+        $response->assertStatus(302)->assertRedirect(route("flights"));
+        $this->assertDatabaseCount("flights", 0);
+    }
+
+    public function test_viewIsFlightsCreate(): void
+    {
+        $user = User::factory()->create(["admin" => 1]);
+        $this->be($user);
+        $response = $this->get(route("flightsCreate"));
+
+        $response->assertStatus(200)->assertViewIs("admin.flights.flightsCreate");
+    }
+
+    public function test_createFlight(): void
+    {
+        Airplane::factory(10)->create();
+        $user = User::factory()->create(["admin" => 1]);
+        $this->be($user);
+        $response = $this->post(route("flightsCreate", [
+            "date" => "2025-12-12",
+            "departure" => "test",
+            "arrival" => "test",
+            "image" => "test",
+            "airplane" => 1,
+            "status" => 1
+        ]));
+
+        $response->assertStatus(302)->assertRedirect(route("flights"));
+        $this->assertDatabaseCount("flights", 1);
+    }
+
+    public function test_viewIsFlightsEdit(): void
+    {
+        Airplane::factory(10)->create();
+        Flight::factory(1)->create();
+        $user = User::factory()->create(["admin" => 1]);
+        $this->be($user);
+        $response = $this->get(route("flightsEdit", 1));
+
+        $response->assertStatus(200)->assertViewIs("admin.flights.flightsEdit");
+    }
+
+    public function test_editFlight(): void
+    {
+        Airplane::factory(10)->create();
+        Flight::factory(1)->create();
+        $user = User::factory()->create(["admin" => 1]);
+        $this->be($user);
+        $response = $this->post(route("flightsEdit", [
+            "id" => 1,
+            "date" => "2025-12-12",
+            "departure" => "test",
+            "arrival" => "test",
+            "image" => "test",
+            "airplane" => 1,
+            "status" => 1
+        ]));
+        $flight = Flight::find(1);
+
+        $response->assertStatus(302)->assertRedirect(route("flights"));
+    }
 }
 

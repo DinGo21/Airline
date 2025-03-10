@@ -26,10 +26,6 @@ class AirplaneController extends Controller
 
     public function create(Request $request)
     {
-        if (!Auth::user()->admin)
-        {
-            return (Redirect::to(route("index")));
-        }
         if ($request->method() === "POST")
         {
             $this->store($request);
@@ -60,10 +56,6 @@ class AirplaneController extends Controller
     {
         $airplane = Airplane::find($id);
 
-        if (!Auth::user()->admin)
-        {
-            return (Redirect::to(route("index")));
-        }
         if ($request->method() === "POST")
         {
             $this->update($request, $airplane);
@@ -81,10 +73,6 @@ class AirplaneController extends Controller
     {
         $airplanes = Airplane::all();
         
-        if (!Auth::user()->admin)
-        {
-            return (Redirect::to(route("index")));
-        }
         if ($request->action == "delete")
         {
             $this->destroy($request->id);
