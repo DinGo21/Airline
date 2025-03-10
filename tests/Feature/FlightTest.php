@@ -75,7 +75,7 @@ class FlightTest extends TestCase
         $this->withoutExceptionHandling();
 
         Airplane::factory(10)->create(["max_places" => 100]);
-        Flight::factory()->create(["status" => 1]);
+        Flight::factory()->create(["date" => "2050-01-01", "status" => 1]);
         $user = User::factory()->create();
         $this->be($user);
         $response = $this->get(route("show", [
@@ -90,37 +90,34 @@ class FlightTest extends TestCase
         $response->assertStatus(302)->assertRedirect(route("show", 1));
     }
 
-    // public function test_BookWithEmptyPlaces(): void
-    // {
-    //     $this->withoutExceptionHandling();
+    public function test_denegateBookAction(): void
+    {
+        $this->withoutExceptionHandling();
 
-    //     Airplane::factory()->create(["places" => 0]);
-    //     Flight::factory()->create(["airplane_id" => 1, "status" => 0]);
-    //     $user = User::factory()->create();
-    //     $this->be($user);
-    //     $response = $this->get(route("show", 
-    //         [
-    //             "id" => 1,
-    //             "action" => "book"
-    //         ]
-    //     ));
-    //     $flight = Flight::find(1);
+        Airplane::factory(10)->create(["max_places" => 0]);
+        Flight::factory()->create();
+        $user = User::factory()->create();
+        $this->be($user);
+        $response = $this->get(route("show", [
+            "id" => 1,
+            "action" => "book"
+        ]));
+        $flight = Flight::find(1);
 
-    //     $this->assertAuthenticated();
-    //     $this->assertEquals($flight->airplane->places, 0);
-    //     $this->assertEquals($flight->status, 0);
-    //     $response->assertRedirect(route("show", 1));
-    // }
+        $this->assertAuthenticated();
+        $response->assertStatus(302)->assertRedirect(route("show", 1));
+    }
 
     public function test_debookFlight(): void
     {
         $this->withoutExceptionHandling();
 
-        Airplane::factory(10)->create();
-        $flight = Flight::factory()->create();
+        Airplane::factory(10)->create(["max_places" => 1]);
+        $flight = Flight::factory()->create(["date" => "2050-01-01", "status" => 1]);
         $user = User::factory()->create();
-        $flight->users()->attach(1);
         $this->be($user);
+        $flight->users()->attach(1);
+        $flight->update(["available_places" => $flight->airplane->max_places - 1]);
         $response = $this->get(route("show", [
             "id" => 1,
             "action" => "debook"
@@ -128,31 +125,27 @@ class FlightTest extends TestCase
         $flight = Flight::find(1);
 
         $this->assertAuthenticated();
-        $this->assertEquals($flight->airplane->max_places + 1, $flight->available_places);
-        $response->assertRedirect(route("show", 1));
+        $this->assertEquals($flight->airplane->max_places, $flight->available_places);
+        $response->assertStatus(302)->assertRedirect(route("show", 1));
     } 
 
-    // public function test_debookWithFullPlaces(): void
-    // {
-    //     $this->withoutExceptionHandling();
+    public function test_denegateDebookAction(): void
+    {
+        Airplane::factory(10)->create(["max_places" => 1]);
+        $flight = Flight::factory()->create(["date" => "0000-00-00", "status" => 0]);
+        $user = User::factory()->create();
+        $this->be($user);
+        $flight->users()->attach(1);
+        $flight->update(["available_places" => $flight->airplane->max_places - 1]);
+        $response = $this->get(route("show", [
+            "id" => 1,
+            "action" => "debook"
+        ]));
+        $flight = Flight::find(1);
 
-    //     Airplane::factory()->create(["places" => 200]);
-    //     $flight = Flight::factory()->create(["airplane_id" => 1, "status" => 1]);
-    //     $user = User::factory()->create();
-    //     $flight->users()->attach(1);
-    //     $this->be($user);
-    //     $response = $this->get(route("show", 
-    //         [
-    //             "id" => 1,
-    //             "action" => "debook"
-    //         ]
-    //     ));
-    //     $flight = Flight::find(1);
-
-    //     $this->assertAuthenticated();
-    //     $this->assertEquals($flight->airplane->places, 200);
-    //     $this->assertEquals($flight->status, 1);
-    //     $response->assertRedirect(route("show", 1));
-    // } 
+        $this->assertAuthenticated();
+        $this->assertEquals($flight->airplane->max_places - 1, $flight->available_places);
+        $response->assertStatus(302)->assertRedirect(route("show", 1));
+    }
 }
 

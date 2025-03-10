@@ -38,6 +38,10 @@ class FlightController extends Controller
 
     public function book(Flight $flight, int $userId)
     {
+        if ($flight->available_places === 0 || $flight->status === false || $flight->date < now())
+        {
+            return (Redirect::to(route("show", $flight->id)));
+        } 
         $flight->users()->attach($userId);
         $flight->update([
             "available_places" => $flight->available_places - 1
@@ -46,6 +50,11 @@ class FlightController extends Controller
 
     public function debook(Flight $flight, int $userId)
     {
+        if ($flight->available_places === $flight->airplane->max_places 
+            || $flight->status === false || $flight->date < now())
+        {
+            return (Redirect::to(route("show", $flight->id)));
+        } 
         $flight->users()->detach($userId);
         $flight->update([
             "available_places" => $flight->available_places + 1
