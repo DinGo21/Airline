@@ -20,7 +20,7 @@ Route::get("/flights/{id}/edit", [FlightController::class, "edit"])->middleware(
 Route::post("/flights/{id}/edit", [FlightController::class, "edit"])->middleware("auth", IsAdmin::class.":web")->name("flightsEdit");
 
 Route::get("/users", [UserController::class, "users"])->middleware("auth", IsAdmin::class.":web")->name("users");
-Route::get("/user/bookings", [UserController::class, "bookings"])->name("userBookings")->middleware(BookingIsAllowed::class.":index");
+Route::get("/user/bookings", [UserController::class, "bookings"])->middleware(BookingIsAllowed::class.":index")->name("userBookings");
 
 Route::get("/planes", [AirplaneController::class, "index"])->middleware("auth", IsAdmin::class.":web")->name("planes");
 Route::get("/planes/create", [AirplaneController::class, "create"])->middleware("auth", IsAdmin::class.":web")->name("planesCreate");

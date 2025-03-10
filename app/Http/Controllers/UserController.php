@@ -12,7 +12,12 @@ class UserController extends Controller
     public function debook(User $user, string $id)
     {
         $flight = $user->flights()->where("flight_id", $id)->first();
-        
+    
+        if ($flight->available_places === $flight->airplane->max_places 
+            || $flight->status === false || $flight->date < now())
+        {
+            return (Redirect::to(route("show", $flight->id)));
+        }
         $user->flights()->detach($id);
         $flight->update([
             "available_places" => $flight->available_places + 1
