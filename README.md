@@ -1,91 +1,150 @@
-# Job Search
+# ✈️ Job Search
 
 ![Airline](./public/img/Airline.jpg)
 
-## About
-
 Airline is a flight booking website that lets you manage your bookings the way you want. Sign in to enjoy all the features the app offers.
 
-### Characeristics
+## ⭐ Characeristics
 
-* Book and cancel flight reservations.
-* A search bar to filter available flights.
-* A dashboard to view all your future and past bookings.
+* __Book and cancel flight reservations__.
+
+* __A search bar to filter available flights__.
+
+* __A dashboard to view all your future and past bookings__.
 
 ![Homepage](public/img/homepage.png)
 ![Bookings](public/img/bookings.png)
 
-## installation
+## 📦 How to Install
 
-### Pre-requisites
+### Prerequisites:
 
-* PHP 8.0 or above
-* Composer
-* Relational database engine (Mysql/Sqlite)
-* Node.js
+* __PHP language version 8.2 or above:__ https://www.php.net/downloads.php.
 
-### Steps
+* __MySQL Database:__ https://dev.mysql.com/downloads/.
 
-1. Clone the git repository:
+* __Composer dependency manager for PHP:__ https://getcomposer.org/.
+
+* __Node.js latest stable version:__ https://nodejs.org/en.
+
+### Installation Steps
+
+1. Clone the repo:
 
 ```
-git clone https://github.com/DinGo21/Airline.git
+git clone https://github.com/Equipo-3-Hackaton-Globant/ReadersMatch.git
 ```
 
-2. Enter inside the folder and install all dependencies by running the next command:
+2. Inside the cloned repository, install the required dependencies:
 
 ```
 composer install && npm install
 ```
 
-3. Copy and paste the '.env.example' file and rename it to '.env', then uncomment the lines ranging from 25 to 29.
+3. Copy `.env.example` and create a new file called `.env`:
 
-![enviroment](public/img/env1.png)
+```
+cp .env.example .env
+```
 
-4. Change the variable `DB_CONNECTION` to the database engine you are currently using, and also name your main database inside `DB_DATABASE`.
-
-5. generate the encryption key to get access to the database:
+4. Generate a new key for laravel:
 
 ```
 php artisan key:generate
 ```
 
-6. Migrate the database and tables:
+5. Check that the MySQL service is running and then migrate the database by running the command below:
 
 ```
 php artisan migrate
 ```
 
-7. Last thing is to initialize the server to begin using the website by running the line below:
+Once you've done all the previous steps finally you can initialize the server and start using the application:
 
 ```
-npm run build && composer run dev
+npm run build && composer run dev --timeout 1000000
 ```
 
-## Languages and Tools Used
+## 🌐 API Endpoints
 
-<div align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" height="40" alt="laravel logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" height="40" alt="php logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="40" alt="html5 logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="40" alt="css3 logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" height="40" alt="mysql logo"  />
-  <img width="12" />
-</div>
+The application integrates JWT to manage user authentication when consuming the API, meaning that you must employ the login endpoints before making requests to any other endpoint. Below you will see a list containing all the available endpoints alongside their respective methods and json structure (if they possess one).
+
+### Authentication
+
+> __POST__ /api/auth/register
+```
+{"name", "email", "password", "password_confirmation"}
+```
+
+> __POST__ /api/auth/login
+```
+{"email", "password"}
+```
+
+> __POST__ /api/auth/me
+
+> __POST__ /api/auth/refresh
+
+> __POST__ /api/auth/logout
+
+---
+
+### Airplanes
+
+> __GET__ /api/airplanes
+
+> __GET__ /api/airplanes/{id}
+
+> __POST__ /api/airplanes (Admin Only)
+```
+{"name", "maxPLaces"}
+```
+
+> __PUT__ /api/airplanes/{id} (Admin Only)
+```
+{"name", "maxPLaces"}
+```
+
+> __DELETE__ /api/airplanes/{id} (Admin Only)
+
+---
+
+### Flights
+
+> __GET__ /api/flights
+
+> __GET__ /api/flights/{id}
+
+> __POST__ /api/flights (Admin Only)
+```
+{"date", "departure", "arrival", "image", "airplaneId", "availablePlaces", "status"}
+```
+
+> __PUT__ /api/flights/{id} (Admin Only)
+```
+{"date", "departure", "arrival", "image", "airplaneId", "availablePlaces", "status"}
+```
+
+> __DELETE__ /api/flights/{id} (Admin Only)
+
+## 🐬 Database Diagram
+
+![Diagram](public/img/database.png)
+
+## 🛠️ Languages and Tools Used
+
+### Front End:
+
+[![Front End Stack](https://skillicons.dev/icons?i=js,html,css,bootstrap)](https://skillicons.dev)
+
+### Back End:
+
+[![Back End Stack](https://skillicons.dev/icons?i=laravel,php,mysql,nodejs,vite)](https://skillicons.dev)
 
 
-## Authors
+## 🧑‍💻 Author
 
-* Diego Santamaria: 
+__Diego Santamaria, Backend Developer.__
 
-<div align="left">
-  <a href="www.linkedin.com/in/diegosm21" target="_blank">
-    <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/linkedin/default.svg" width="52" height="40" alt="linkedin logo"  />
-  </a>
-</div>
+[![Github](https://skillicons.dev/icons?i=github)](https://github.com/DinGo21/)
+[![Linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/diegosm21/)

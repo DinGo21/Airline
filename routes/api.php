@@ -22,8 +22,6 @@ Route::group([
     Route::post('/me', [AuthController::class, 'me'])->middleware('auth:api')->name('me');
 });
 
-
-
 Route::post("/airplanes", [AirplaneController::class, "store"])->middleware(['auth:api', IsAdmin::class.":api"])->name("apiairplanestore");
 Route::get("/airplanes", [AirplaneController::class, "index"])->middleware('auth:api')->name("apiairplaneindex");
 Route::get("/airplanes/{id}", [AirplaneController::class, "show"])->middleware('auth:api')->name("apiairplaneshow");
