@@ -1,4 +1,4 @@
-# ✈️ Job Search
+# ✈️ Airline
 
 ![Airline](./public/img/Airline.jpg)
 
