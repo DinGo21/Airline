@@ -131,6 +131,16 @@ The application integrates JWT to manage user authentication when consuming the 
 
 ![Diagram](public/img/database.png)
 
+## 🧪 Tests
+
+To test the application execute the command below:
+
+```
+php artisan test
+```
+
+![Tests](public/img/tests.png)
+
 ## 🛠️ Languages and Tools Used
 
 ### Front End:
