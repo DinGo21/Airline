@@ -32,7 +32,7 @@ Airline is a flight booking website that lets you manage your bookings the way y
 1. Clone the repo:
 
 ```
-git clone https://github.com/Equipo-3-Hackaton-Globant/ReadersMatch.git
+git clone https://github.com/DinGo21/Airline
 ```
 
 2. Inside the cloned repository, install the required dependencies:
